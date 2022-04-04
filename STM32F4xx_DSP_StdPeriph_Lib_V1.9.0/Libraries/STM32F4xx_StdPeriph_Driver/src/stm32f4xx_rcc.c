@@ -274,6 +274,10 @@ void RCC_DeInit(void)
   *            @arg RCC_HSE_Bypass: HSE oscillator bypassed with external clock
   * @retval None
   */
+
+#ifndef assert_param
+#define assert_param(x)
+#endif
 void RCC_HSEConfig(uint8_t RCC_HSE)
 {
   /* Check the parameters */

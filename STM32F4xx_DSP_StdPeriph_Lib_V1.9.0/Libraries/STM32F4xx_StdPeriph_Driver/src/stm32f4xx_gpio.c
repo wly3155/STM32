@@ -117,6 +117,10 @@
   *                      x can be (A, B, C, D and H) to select the GPIO peripheral for STM32F401xx devices.  
   * @retval None
   */
+#ifndef assert_param
+#define assert_param(x)
+#endif
+
 void GPIO_DeInit(GPIO_TypeDef* GPIOx)
 {
   /* Check the parameters */
