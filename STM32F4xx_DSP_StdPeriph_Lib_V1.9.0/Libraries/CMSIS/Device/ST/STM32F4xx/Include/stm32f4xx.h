@@ -49,7 +49,11 @@
 #ifdef __cplusplus
  extern "C" {
 #endif /* __cplusplus */
-  
+
+#ifndef assert_param
+#define assert_param(x)
+#endif
+
 /** @addtogroup Library_configuration_section
   * @{
   */
