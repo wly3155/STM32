@@ -275,9 +275,6 @@ void RCC_DeInit(void)
   * @retval None
   */
 
-#ifndef assert_param
-#define assert_param(x)
-#endif
 void RCC_HSEConfig(uint8_t RCC_HSE)
 {
   /* Check the parameters */
