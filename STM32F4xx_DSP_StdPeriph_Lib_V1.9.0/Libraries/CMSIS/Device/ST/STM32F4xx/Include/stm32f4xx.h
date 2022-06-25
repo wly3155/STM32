@@ -46,13 +46,34 @@
 #ifndef __STM32F4xx_H
 #define __STM32F4xx_H
 
+#include <stdint.h>
+
 #ifdef __cplusplus
  extern "C" {
 #endif /* __cplusplus */
 
-#ifndef assert_param
-#define assert_param(x)
-#endif
+/* Exported macro ------------------------------------------------------------*/
+#ifdef  USE_FULL_ASSERT
+
+/**
+  * @brief  The assert_param macro is used for function's parameters check.
+  * @param  expr: If expr is false, it calls assert_failed function
+  *   which reports the name of the source file and the source
+  *   line number of the call that failed.
+  *   If expr is true, it returns no value.
+  * @retval None
+  */
+  #ifndef assert_param
+
+  #define assert_param(expr) ((expr) ? (void)0 : assert_failed((uint8_t *)__FILE__, __LINE__))
+  #endif
+/* Exported functions ------------------------------------------------------- */
+  void assert_failed(uint8_t* file, uint32_t line);
+#else
+  #ifndef assert_param
+  #define assert_param(expr) ((void)0)
+  #endif
+#endif /* USE_FULL_ASSERT */
 
 /** @addtogroup Library_configuration_section
   * @{
@@ -285,7 +306,7 @@ typedef enum IRQn
   DCMI_IRQn                   = 78,     /*!< DCMI global interrupt                                             */
   CRYP_IRQn                   = 79,     /*!< CRYP crypto global interrupt                                      */
   HASH_RNG_IRQn               = 80,     /*!< Hash and Rng global interrupt                                     */
-  FPU_IRQn                    = 81      /*!< FPU global interrupt                                              */
+  FPU_IRQn                    = 81,     /*!< FPU global interrupt                                              */
 #endif /* STM32F40_41xxx */
 
 #if defined(STM32F427_437xx)
@@ -358,7 +379,7 @@ typedef enum IRQn
   SPI5_IRQn                   = 85,     /*!< SPI5 global Interrupt                                             */
   SPI6_IRQn                   = 86,     /*!< SPI6 global Interrupt                                             */
   SAI1_IRQn                   = 87,     /*!< SAI1 global Interrupt                                             */
-  DMA2D_IRQn                  = 90      /*!< DMA2D global Interrupt                                            */
+  DMA2D_IRQn                  = 90,     /*!< DMA2D global Interrupt                                            */
 #endif /* STM32F427_437xx */
     
 #if defined(STM32F429_439xx)
@@ -433,7 +454,7 @@ typedef enum IRQn
   SAI1_IRQn                   = 87,     /*!< SAI1 global Interrupt                                             */
   LTDC_IRQn                   = 88,     /*!< LTDC global Interrupt                                             */
   LTDC_ER_IRQn                = 89,     /*!< LTDC Error global Interrupt                                       */
-  DMA2D_IRQn                  = 90      /*!< DMA2D global Interrupt                                            */
+  DMA2D_IRQn                  = 90,     /*!< DMA2D global Interrupt                                            */
 #endif /* STM32F429_439xx */
 
 #if defined(STM32F410xx)
@@ -514,7 +535,7 @@ typedef enum IRQn
 #endif /* STM32F411xE */
 #if defined(STM32F411xE)
   SPI4_IRQn                   = 84,     /*!< SPI4 global Interrupt                                             */
-  SPI5_IRQn                   = 85      /*!< SPI5 global Interrupt                                             */
+  SPI5_IRQn                   = 85,     /*!< SPI5 global Interrupt                                             */
 #endif /* STM32F411xE */
 #endif /* STM32F401xx || STM32F411xE */
 
@@ -592,7 +613,7 @@ typedef enum IRQn
   LTDC_ER_IRQn                = 89,     /*!< LTDC Error global Interrupt                                       */
   DMA2D_IRQn                  = 90,     /*!< DMA2D global Interrupt                                            */
   QUADSPI_IRQn                = 91,     /*!< QUADSPI global Interrupt                                          */
-  DSI_IRQn                    = 92      /*!< DSI global Interrupt                                              */
+  DSI_IRQn                    = 92,     /*!< DSI global Interrupt                                              */
 #endif /* STM32F469_479xx */
 
 #if defined(STM32F446xx)
@@ -663,7 +684,7 @@ typedef enum IRQn
   CEC_IRQn                    = 93,     /*!< QuadSPI global Interrupt                                          */
   SPDIF_RX_IRQn               = 94,     /*!< QuadSPI global Interrupt                                          */
   FMPI2C1_EV_IRQn             = 95,     /*!< FMPI2C Event Interrupt                                            */
-  FMPI2C1_ER_IRQn             = 96      /*!< FMPCI2C Error Interrupt                                           */
+  FMPI2C1_ER_IRQn             = 96,     /*!< FMPCI2C Error Interrupt                                           */
 #endif /* STM32F446xx */
 
 #if defined(STM32F412xG)
@@ -726,7 +747,7 @@ typedef enum IRQn
   SPI5_IRQn                   = 85,      /*!< SPI5 global Interrupt                                            */
   QUADSPI_IRQn                = 92,     /*!< QuadSPI global Interrupt                                          */
   FMPI2C1_EV_IRQn             = 95,     /*!< FMPI2C1 Event Interrupt                                           */
-  FMPI2C1_ER_IRQn             = 96      /*!< FMPI2C1 Error Interrupt                                           */
+  FMPI2C1_ER_IRQn             = 96,     /*!< FMPI2C1 Error Interrupt                                           */
 #endif /* STM32F412xG */
 
 #if defined(STM32F413_423xx)
@@ -804,8 +825,9 @@ typedef enum IRQn
   DFSDM2_FLT0_IRQn            = 98,     /*!< DFSDM2 Filter 0 global Interrupt                                  */
   DFSDM2_FLT1_IRQn            = 99,     /*!< DFSDM2 Filter 1 global Interrupt                                  */
   DFSDM2_FLT2_IRQn            = 100,    /*!< DFSDM2 Filter 2 global Interrupt                                  */
-  DFSDM2_FLT3_IRQn            = 101     /*!< DFSDM2 Filter 3 global Interrupt                                  */
+  DFSDM2_FLT3_IRQn            = 101,    /*!< DFSDM2 Filter 3 global Interrupt                                  */
 #endif /* STM32F413_423xx */
+  MAX_IRQ_NUM,
 } IRQn_Type;
 
 /**
