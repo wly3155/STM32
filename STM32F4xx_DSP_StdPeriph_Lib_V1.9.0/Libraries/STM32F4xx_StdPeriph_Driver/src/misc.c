@@ -149,6 +149,8 @@ void NVIC_Init(NVIC_InitTypeDef* NVIC_InitStruct)
         
     NVIC->IP[NVIC_InitStruct->NVIC_IRQChannel] = tmppriority;
     
+    NVIC->ICPR[NVIC_InitStruct->NVIC_IRQChannel >> 0x05] =
+      (uint32_t)0x01 << (NVIC_InitStruct->NVIC_IRQChannel & (uint8_t)0x1F);
     /* Enable the Selected IRQ Channels --------------------------------------*/
     NVIC->ISER[NVIC_InitStruct->NVIC_IRQChannel >> 0x05] =
       (uint32_t)0x01 << (NVIC_InitStruct->NVIC_IRQChannel & (uint8_t)0x1F);

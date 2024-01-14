@@ -56,23 +56,24 @@ SECTIONS
 	.text :
 	{
 		. = ALIGN(4);
-		*(.text)           /* .text sections (code) */
-		*(.text*)          /* .text* sections (code) */
-		*(.glue_7)         /* glue arm to thumb code */
-		*(.glue_7t)        /* glue thumb to arm code */
+		*(.text)
+		*(.text*)
+		*(.glue_7)
+		*(.glue_7t)
 		*(.eh_frame)
 		KEEP (*(.init))
 		KEEP (*(.fini))
 		. = ALIGN(4);
-		_etext = .;        /* define a global symbols at end of code */
+		_etext = .; /* define a global symbols at end of code */
 	} >FLASH
 
 	/* Constant data goes into FLASH */
 	.rodata :
 	{
 		. = ALIGN(4);
-		*(.rodata)         /* .rodata sections (constants, strings, etc.) */
-		*(.rodata*)        /* .rodata* sections (constants, strings, etc.) */
+		*(.rodata)
+		*(.rodata*)
+		KEEP(*(.ro_debug))
 		. = ALIGN(4);
 	} >FLASH
 
