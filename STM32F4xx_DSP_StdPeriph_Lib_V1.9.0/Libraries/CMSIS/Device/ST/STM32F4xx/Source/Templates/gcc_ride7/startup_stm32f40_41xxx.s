@@ -5,13 +5,13 @@
   * @version   V1.8.1
   * @date      27-January-2022
   * @brief     STM32F40xxx/41xxx Devices vector table for RIDE7 toolchain.
-  *            Same as startup_stm32f40xx.s and maintained for legacy purpose             
+  *            Same as startup_stm32f40xx.s and maintained for legacy purpose
   *            This module performs:
   *                - Set the initial SP
   *                - Set the initial PC == Reset_Handler,
   *                - Set the vector table entries with the exceptions ISR address
-  *                - Configure the clock system and the external SRAM mounted on 
-  *                  STM324xG-EVAL board to be used as data memory (optional, 
+  *                - Configure the clock system and the external SRAM mounted on
+  *                  STM324xG-EVAL board to be used as data memory (optional,
   *                  to be enabled by user)
   *                - Branches to main in the C library (which eventually
   *                  calls main()).
@@ -98,7 +98,7 @@ LoopFillZerobss:
 	bl SystemInit
 /* Call the application's entry point.*/
 	bl main
-	bx lr    
+	bx lr
 .size  Reset_Handler, .-Reset_Handler
 
 /**
@@ -127,17 +127,17 @@ Infinite_Loop:
 g_pfnVectors:
 	.word _kstack_start
 	.word Reset_Handler
-	.word NMI_Handler
-	.word HardFault_Handler
-	.word MemManage_Handler
-	.word BusFault_Handler
-	.word UsageFault_Handler
+	.word exception_handler
+	.word exception_handler
+	.word exception_handler
+	.word exception_handler
+	.word exception_handler
 	.word 0
 	.word 0
 	.word 0
 	.word 0
 	.word SVC_Handler
-	.word DebugMon_Handler
+	.word exception_handler
 	.word 0
 	.word PendSV_Handler
 	.word SysTick_Handler
