@@ -73,6 +73,7 @@ SECTIONS
 		. = ALIGN(4);
 		*(.rodata)         /* .rodata sections (constants, strings, etc.) */
 		*(.rodata*)        /* .rodata* sections (constants, strings, etc.) */
+		KEEP(*(.ro_debug))
 		. = ALIGN(4);
 	} >FLASH
 
